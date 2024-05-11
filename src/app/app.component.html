@@ -1,5 +1,5 @@
 <div>
-  <app-user-search></app-user-search>
-  <app-user-profile></app-user-profile>
-  <app-user-repos></app-user-repos>
+  <app-user-search (githubUserName)="setUserName($event)" ></app-user-search>
+  <app-user-profile [login]="login" [bio] = "bio" [avatar_url] = "avatar_url" [html_url] ="html_url" [location]="location"></app-user-profile>
+  <app-user-repos [userRepos] ="userRepos"></app-user-repos>
 </div>
