@@ -1,28 +1,55 @@
 <div>
   <app-user-search (githubUserName)="setUserName($event)"></app-user-search>
-  <app-skeleton-loader *ngIf="isLoading"></app-skeleton-loader>
-  <div *ngIf="!isLoading">
-    <app-user-profile
-        [userData]="userData"
-    ></app-user-profile>
-    <div class="user-repos px-5 py-5">
- 
-      <div  class="repositories grid grid-cols-2 gap-4 py-5 border">
-    
-        <div *ngFor="let repo of userRepos | paginate:{itemsPerPage:per_page,currentPage:currentPage,totalItems:totalRepos}; let i=index" class="flex flex-col pl-4 py-3 gap-y-3 border border-black">
-          <h1>{{repo.name}}</h1>
-          <p>{{repo.description}}</p>
-        
-        </div>
-        
+  <div *ngIf="githubUserName">
+    <app-skeleton-loader *ngIf="isLoading"></app-skeleton-loader>
+    <div *ngIf="!isLoading">
+      <div *ngIf="userData">
+      <app-user-profile [userData]="userData"></app-user-profile>
+      <div class=" flex justify-end gap-x-5 px-10">
+        <label for="size">Select Page</label>
+        <select (change)="onTableSizeChange($event)">
+          <option *ngFor="let size of per_pages">
+            {{ size }}
+          </option>
+        </select>
       </div>
-     
-    </div>
-    <div>
-      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
-    </div>
-    <!-- <app-user-repos [userRepos]="userRepos"></app-user-repos> -->
-    <!-- <app-pagination [totalRepos]="totalRepos"></app-pagination> -->
+      <div class="user-repos px-5 py-5">
+        <div class="repositories grid grid-cols-1 md:grid-cols-2 gap-4 py-5 ">
+          <div
+            *ngFor="
+              let repo of userRepos
+                | paginate
+                  : {
+                      itemsPerPage: per_page,
+                      currentPage: currentPage,
+                      totalItems: totalRepos
+                    };
+              let i = index
+            "
+            class="flex flex-col pl-4 py-3 gap-y-3 border border-black rounded-xl"
+          >
+            <h1 class="text-2xl font-bold "> <a [href]="repo.html_url" target="_blank" > {{ repo.name }}</a> </h1>
+            <p>{{ repo.description }}</p>
+          
+  <div class="flex flex-wrap gap-3 ">
+    <div *ngFor="let topic of repo.topics" class="bg-sky-300 rounded-xl p-1 text-sm">{{ topic }}</div>
   </div>
-</div>
+           
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+    <div *ngIf="!userData" class="h-screen flex justify-center items-center text-4xl font-bold"> 
+      User not found
+    </div>
+    </div>
+  </div>
 
+</div>
