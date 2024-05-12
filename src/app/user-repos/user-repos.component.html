@@ -1,42 +1,7 @@
-<div class="user-repos px-5 py-5">
-  <div class="flex gap-x-3 justify-end p-2">
-    <label for="page">Select page </label>
-    <select name="page" id="page">
-      <option value="10">10</option>
-      <option value="saab">20</option>
-      <option value="opel">30</option>
-      <option value="audi">40</option>
-      <option value="audi">50</option>
-      <option value="audi">60</option>
-      <option value="audi">70</option>
-      <option value="audi">80</option>
-      <option value="audi">90</option>
-      <option value="audi">100</option>
-    </select>
-  </div>
-  <div  class="repositories grid grid-cols-2 gap-4 py-5 border">
 
-    <div *ngFor="let repo of userRepos" class="flex flex-col pl-4 py-3 gap-y-3 border border-black">
-      <h1>{{repo.name}}</h1>
-      <p>{{repo.description}}</p>
-      <!-- <div ng-repeat="let topic in repo.topics" class="flex flex-wrap gap-2">
+
+
+  <!-- <div ng-repeat="let topic in repo.topics" class="flex flex-wrap gap-2">
           <div   class="bg-sky-300 rounded-xl p-1 text-sm">{{repo.topics}}</div>
           -->
        <!-- </div> -->
-    </div>
-    
-  </div>
-  <div class="flex justify-center">
-    <div class="border px-3 py-2"></div>
-    <div class="border px-3 py-2 active bg-blue-500 text-white">1</div>
-    <div class="border px-3 py-2">2</div>
-    <div class="border px-3 py-2">3</div>
-    <div class="border px-3 py-2">4</div>
-    <div class="border px-3 py-2">5</div>
-    <div class="border px-3 py-2">6</div>
-    <div class="border px-3 py-2">7</div>
-    <div class="border px-3 py-2">8</div>
-    <div class="border px-3 py-2">9</div>
-    <div class="border px-3 py-2"></div>
-  </div>
-</div>

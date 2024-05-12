@@ -1,5 +1,28 @@
 <div>
-  <app-user-search (githubUserName)="setUserName($event)" ></app-user-search>
-  <app-user-profile [login]="login" [bio] = "bio" [avatar_url] = "avatar_url" [html_url] ="html_url" [location]="location"></app-user-profile>
-  <app-user-repos [userRepos] ="userRepos"></app-user-repos>
+  <app-user-search (githubUserName)="setUserName($event)"></app-user-search>
+  <app-skeleton-loader *ngIf="isLoading"></app-skeleton-loader>
+  <div *ngIf="!isLoading">
+    <app-user-profile
+        [userData]="userData"
+    ></app-user-profile>
+    <div class="user-repos px-5 py-5">
+ 
+      <div  class="repositories grid grid-cols-2 gap-4 py-5 border">
+    
+        <div *ngFor="let repo of userRepos | paginate:{itemsPerPage:per_page,currentPage:currentPage,totalItems:totalRepos}; let i=index" class="flex flex-col pl-4 py-3 gap-y-3 border border-black">
+          <h1>{{repo.name}}</h1>
+          <p>{{repo.description}}</p>
+        
+        </div>
+        
+      </div>
+     
+    </div>
+    <div>
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+    </div>
+    <!-- <app-user-repos [userRepos]="userRepos"></app-user-repos> -->
+    <!-- <app-pagination [totalRepos]="totalRepos"></app-pagination> -->
+  </div>
 </div>
+
