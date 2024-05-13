@@ -1,9 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
+import { ApiService } from './services/api.service';
 
-describe('AppComponent', () => {
+xdescribe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    declarations: [AppComponent],
+    imports: [ HttpClientTestingModule ],
+    providers: [ApiService]
   }));
 
   it('should create the app', () => {

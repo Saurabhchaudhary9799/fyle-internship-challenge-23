@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
 
+
 export interface Repo {
   name: string;
   description: string;
@@ -13,6 +14,7 @@ export interface Repo {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  title:string='fyle-frontend-challenge';
   currentPage: number = 1;
   isLoading: boolean = false;
   githubUserName:string ='';
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit{
   totalRepos:number=0; 
   per_page:number=10;
   per_pages:any =[10,20,30,40,50,60,70,80,90,100];
-  
+  restRepo:number = this.totalRepos - (this.currentPage * this.per_page);
   
  
 
@@ -31,7 +33,22 @@ export class AppComponent implements OnInit{
     this.isLoading = true;
     this.getUserDetails();
     this.getAllRepos();
-    
+  }
+
+  goPrev(){
+    if(this.currentPage > 1){
+    this.currentPage--;
+    }
+    this.getAllRepos();
+    console.log(this.currentPage);
+
+  }
+
+  goNext(){
+    if(this.totalRepos > 0){
+    this.currentPage++; }
+    this.getAllRepos();
+    console.log(this.currentPage);
   }
 
   getUserDetails():void{
@@ -47,7 +64,7 @@ export class AppComponent implements OnInit{
     });
   }
   getAllRepos():void{
-    this.apiService.getRepos(this.githubUserName).subscribe((data: any) => {
+    this.apiService.getRepos(this.githubUserName ,this.currentPage, this.per_page).subscribe((data: any) => {
       this.isLoading = false;
       this.userRepos = data;
       this.totalRepos = data.length;
